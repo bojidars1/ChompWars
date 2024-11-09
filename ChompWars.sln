@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChompWars.Server", "ChompWars.Server\ChompWars.Server.csproj", "{3592444B-2CE2-4E05-A621-CAF71DA91364}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChompWars.Server", "ChompWars.Server\ChompWars.Server.csproj", "{3592444B-2CE2-4E05-A621-CAF71DA91364}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "chompwars.client", "chompwars.client\chompwars.client.esproj", "{0E9ED998-E583-435D-AB5F-4CEECEB513AE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{75A62605-80D4-451D-B15B-A119EF1C8C77}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{42DFC6AD-3BC7-4E69-A9E0-A5A3BB602A6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F4CFCCA1-42F8-4BB0-9367-A3D55ED30F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChompWars.Data", "ChompWars.Data\ChompWars.Data.csproj", "{0649624D-F284-46CF-BFAC-A514636896B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,13 +29,18 @@ Global
 		{0E9ED998-E583-435D-AB5F-4CEECEB513AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E9ED998-E583-435D-AB5F-4CEECEB513AE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E9ED998-E583-435D-AB5F-4CEECEB513AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0649624D-F284-46CF-BFAC-A514636896B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0649624D-F284-46CF-BFAC-A514636896B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0649624D-F284-46CF-BFAC-A514636896B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0649624D-F284-46CF-BFAC-A514636896B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3592444B-2CE2-4E05-A621-CAF71DA91364} = {75A62605-80D4-451D-B15B-A119EF1C8C77}
-		{0E9ED998-E583-435D-AB5F-4CEECEB513AE} = {75A62605-80D4-451D-B15B-A119EF1C8C77}
+		{3592444B-2CE2-4E05-A621-CAF71DA91364} = {42DFC6AD-3BC7-4E69-A9E0-A5A3BB602A6C}
+		{0E9ED998-E583-435D-AB5F-4CEECEB513AE} = {42DFC6AD-3BC7-4E69-A9E0-A5A3BB602A6C}
+		{0649624D-F284-46CF-BFAC-A514636896B6} = {F4CFCCA1-42F8-4BB0-9367-A3D55ED30F92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76433063-57E4-4901-9B55-B3496AE7FAD4}
