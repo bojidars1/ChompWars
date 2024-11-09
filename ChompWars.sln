@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChompWars.Server", "ChompWa
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "chompwars.client", "chompwars.client\chompwars.client.esproj", "{0E9ED998-E583-435D-AB5F-4CEECEB513AE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{75A62605-80D4-451D-B15B-A119EF1C8C77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3592444B-2CE2-4E05-A621-CAF71DA91364} = {75A62605-80D4-451D-B15B-A119EF1C8C77}
+		{0E9ED998-E583-435D-AB5F-4CEECEB513AE} = {75A62605-80D4-451D-B15B-A119EF1C8C77}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76433063-57E4-4901-9B55-B3496AE7FAD4}
