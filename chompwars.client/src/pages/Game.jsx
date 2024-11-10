@@ -1,10 +1,13 @@
 import React from 'react';
+import { Fade } from '@mui/material';
 
 const Game = () => {
     return (
-        <div>
-            <h1>Game</h1>
-        </div>
+        <Fade in={true} timeout={500}>
+            <div>
+               <h1>Game</h1>
+            </div>
+        </Fade>
     );
 };
 
