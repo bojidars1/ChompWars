@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/material';
 
 const Layout = ({ children }) => {
@@ -10,9 +9,7 @@ const Layout = ({ children }) => {
             <Toolbar>
                 {/* Logo and App Name */}
                 <Typography variant='h6' component='div' sx={{ flexGrow: 1}}>
-                    <Link to='/' style={{ color: 'white', textDecoration: 'none' }}>
-                      <img src='/src/assets/logo.png' style={{ width: '60px', height: '60px', marginRight: '10px' }}></img>
-                    </Link>
+                    <img src='/src/assets/logo.png' style={{ width: '60px', height: '60px', marginRight: '10px' }}></img>
                     Chomp Wars
                 </Typography>
 
