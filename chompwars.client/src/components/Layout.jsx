@@ -23,7 +23,13 @@ const Layout = ({ children }) => {
            </AppBar>
 
            {/* Main Content */}
-           <Container maxWidth='lg' sx={{ mt: 2 }}>
+           <Container maxWidth='lg' 
+           sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mt: 2
+           }}>
             {children}
            </Container>
 
