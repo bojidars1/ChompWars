@@ -30,10 +30,10 @@ const GameCanvas = () => {
     };
 
     const movePlayer = () => {
-        if (pressedKeys['ArrowUp'] || pressedKeys['w']) player.y -= player.speed;
-        if (pressedKeys['ArrowDown'] || pressedKeys['s']) player.y += player.speed;
-        if (pressedKeys['ArrowLeft'] || pressedKeys['a']) player.x -= player.speed;
-        if (pressedKeys['ArrowRight'] || pressedKeys['d']) player.x += player.speed;
+        if ((pressedKeys['ArrowUp'] || pressedKeys['w']) && player.y - player.size > 0) player.y -= player.speed;
+        if (pressedKeys['ArrowDown'] || pressedKeys['s'] && player.y + player.size < 550) player.y += player.speed;
+        if (pressedKeys['ArrowLeft'] || pressedKeys['a'] && player.x - player.size > 0) player.x -= player.speed;
+        if (pressedKeys['ArrowRight'] || pressedKeys['d'] && player.x + player.size < 800) player.x += player.speed;
     };
 
     useEffect(() => {
