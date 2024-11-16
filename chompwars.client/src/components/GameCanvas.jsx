@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const GameCanvas = () => {
     const canvasRef = useRef(null);
@@ -14,7 +14,8 @@ const GameCanvas = () => {
     const pressedKeys = {};
 
     const drawPlayer = (ctx) => {
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.fillStyle = '#f0f0f0';
+        ctx.fillRect(0, 0, 800, 550);
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
         ctx.fillStyle = player.color;
@@ -54,6 +55,7 @@ const GameCanvas = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
+            cancelAnimationFrame(gameLoop);
         };
     }, []);
 
