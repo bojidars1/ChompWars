@@ -7,23 +7,55 @@ const GameCanvas = () => {
         x: 400,
         y: 275,
         size: 12,
-        color: 'blue'
+        color: 'blue',
+        speed: 1
     };
 
+    const pressedKeys = {};
+
     const drawPlayer = (ctx) => {
-        ctx.clearRect(0, 0, 800, 550);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
         ctx.fillStyle = player.color;
         ctx.fill();
     };
 
+    const handleKeyDown = (e) => {
+        pressedKeys[e.key] = true;
+    };
+
+    const handleKeyUp = (e) => {
+        pressedKeys[e.key] = false;
+    };
+
+    const movePlayer = () => {
+        if (pressedKeys['ArrowUp'] || pressedKeys['w']) player.y -= player.speed;
+        if (pressedKeys['ArrowDown'] || pressedKeys['s']) player.y += player.speed;
+        if (pressedKeys['ArrowLeft'] || pressedKeys['a']) player.x -= player.speed;
+        if (pressedKeys['ArrowRight'] || pressedKeys['d']) player.x += player.speed;
+    };
+
     useEffect(() => {
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
 
-        drawPlayer(context);
-    }, [player, drawPlayer]);
+        const gameLoop = () => {
+            movePlayer();
+            drawPlayer(context);
+            requestAnimationFrame(gameLoop);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
+        gameLoop();
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, []);
 
     return (
         <canvas
