@@ -4,26 +4,43 @@ const GameCanvas = () => {
     const canvasRef = useRef(null);
 
     const world = {
-        width: 1000,
-        height: 3000
+        width: 2000,
+        height: 2000
     };
 
     const player = {
-        x: 400,
-        y: 275,
+        x: 1000,
+        y: 1000,
         size: 12,
         color: 'blue',
-        speed: 1
+        speed: 1.1
     };
-
-    const canvasWidth = 800;
-    const canvasHeight = 550;
 
     const pressedKeys = {};
 
+    const drawGrid = (ctx) => {
+        const gridSquareSize = 50;
+        ctx.strokeStyle = '#ddd';
+        ctx.lineWidth = 0.5;
+
+        // Vertical lines
+        for (let x = 0; x <= world.width; x += gridSquareSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, world.height);
+            ctx.stroke();
+        }
+
+        // Horizontal lines
+        for (let y = 0; y <= world.height; y += gridSquareSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(world.width, y);
+            ctx.stroke();
+        }
+    };
+
     const drawPlayer = (ctx) => {
-        ctx.fillStyle = '#f0f0f0';
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
         ctx.beginPath();
         ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
         ctx.fillStyle = player.color;
@@ -39,30 +56,61 @@ const GameCanvas = () => {
     };
 
     const movePlayer = () => {
-        if ((pressedKeys['ArrowUp'] || pressedKeys['w']) && player.y - player.size > 0) player.y -= player.speed;
-        if ((pressedKeys['ArrowDown'] || pressedKeys['s']) && player.y + player.size < world.height) player.y += player.speed;
-        if ((pressedKeys['ArrowLeft'] || pressedKeys['a']) && player.x - player.size > 0) player.x -= player.speed;
-        if ((pressedKeys['ArrowRight'] || pressedKeys['d']) && player.x + player.size < world.width) player.x += player.speed;
+        if (pressedKeys['ArrowUp'] || pressedKeys['w']) player.y -= player.speed;
+        if (pressedKeys['ArrowDown'] || pressedKeys['s']) player.y += player.speed;
+        if (pressedKeys['ArrowLeft'] || pressedKeys['a']) player.x -= player.speed;
+        if (pressedKeys['ArrowRight'] || pressedKeys['d']) player.x += player.speed;
+
+        // Keep player in world
+        player.x = Math.max(player.size, Math.min(player.x, world.width - player.size));
+        player.y = Math.max(player.size, Math.min(player.y, world.height - player.size));
     };
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        const context = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
+        // Resize canvas logic based on viewport size (considering other components)
+        const resizeCanvas = () => {
+            // Make space for sidebar
+            const canvasWidth = window.innerWidth - 450;
+            const canvasHeight = window.innerHeight - 145;
+
+            // Center canvas
+            canvas.style.marginLeft = 'auto';
+            canvas.style.marginRight = 'auto';
+
+            canvas.width = canvasWidth;
+            canvas.height = canvasHeight;
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Game loop
         const gameLoop = () => {
             movePlayer();
 
-            context.clearRect(0, 0, canvasWidth, canvasHeight);
+            // Clear last frame
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const offsetX = player.x - canvasWidth / 2;
-            const offsetY = player.y - canvasHeight / 2;
+            // Center player in viewport
+            const offsetX = player.x - canvas.width / 2;
+            const offsetY = player.y - canvas.height / 2;
 
-            context.save();
-            context.translate(-offsetX, -offsetY);
+            // Prevent world from scrolling outside of allowed space
+            const worldOffsetX = Math.max(0, Math.min(offsetX, world.width - canvas.width));
+            const worldOffsetY = Math.max(0, Math.min(offsetY, world.height - canvas.height));
 
-            drawPlayer(context);
+            // Apply offset to canvas
+            ctx.save();
+            ctx.translate(-worldOffsetX, -worldOffsetY);
 
-            context.restore();
+            // Draw grid and player
+            drawGrid(ctx);
+            drawPlayer(ctx);
+
+            ctx.restore();
 
             requestAnimationFrame(gameLoop);
         };
@@ -75,6 +123,7 @@ const GameCanvas = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keyup', handleKeyUp);
+            window.removeEventListener('resize', resizeCanvas);
             cancelAnimationFrame(gameLoop);
         };
     }, []);
@@ -82,9 +131,14 @@ const GameCanvas = () => {
     return (
         <canvas
         ref={canvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{ border: '1px solid black' }}
+        style={{
+            position: 'absolute',
+            top: '90px', // fit below header
+            left: '0',
+            right: '0',
+            backgroundColor: '#f0f0f0',
+            zIndex: 1
+        }}
          />
     );
 };
